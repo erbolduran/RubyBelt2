@@ -1,0 +1,100 @@
+<a href = "/products">Go to All Products</a>
+<%= render "shared/header" %>
+
+
+<h1>Register Your Products!</h1>
+
+
+<form action = "/products" method = "post">
+    <input type = "hidden" name = "authenticity_token" value = "<%= form_authenticity_token %>" />
+    Name: <input type = "text" name = "product[name]" /><br>
+    Price: <input type = "number" name = "product[price]" /><br>
+    <input type = "submit" value = "Sell" />
+</form>
+
+
+<strong>Your products that are still being sold.</strong>
+<table>
+    <thead>
+        <tr>
+            <td>Product</td>
+            <td>Date Posted</td>
+            <td>Amount</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+    <% @selling.each do |product| %>
+        <tr>
+            <td><%= product.name %></td>
+            <td><%= product.created_at.to_date %></td>
+            <td>$<%= product.price %></td>
+            <td><a href = "/products/<%= product.id %>" data-method = "delete">Remove</a></td>
+        </tr>
+    <% end %>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Sum</td>
+            <td>$<%= @sellingsum %></td>
+        </tr>    
+    </tbody>
+</table>
+
+
+<strong>Your products that are already sold.</strong>
+<table>
+    <thead>
+        <tr>
+            <td>Product</td>
+            <td>Date Posted</td>
+            <td>Buyer</td>
+            <td>Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+    <% @sold.each do |product| %>
+        <tr>
+            <td><%= product.name %></td>
+            <td><%= product.created_at.to_date %></td>
+            <td><%= product.buyer.name %></td>
+            <td>$<%= product.price %></td>
+        </tr>
+    <% end %>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Sum</td>
+            <td>$<%= @soldsum %></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<strong>Your products that you bought.</strong>
+<table>
+    <thead>
+        <tr>
+            <td>Product</td>
+            <td>Date Posted</td>
+            <td>Seller</td>
+            <td>Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+    <% @bought.each do |product| %>
+        <tr>
+            <td><%= product.name %></td>
+            <td><%= product.created_at.to_date %></td>
+            <td><%= product.user.name %></td>
+            <td>$<%= product.price %></td>
+        </tr>
+    <% end %>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Sum</td>
+            <td>$<%= @boughtsum %></td>
+        </tr>
+    </tbody>
+</table>

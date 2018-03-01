@@ -1,0 +1,26 @@
+<a href = "/products/new">Go To Dashboard</a>
+<%= render "shared/header" %>
+<h1>Hello <%= current_user.name %>!</h1>
+
+<table>
+    <thead>
+        <tr>
+            <td>Product</td>
+            <td>Seller</td>
+            <td>Date Listed</td>
+            <td>Amount</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+    <% @products.each do |product| %>
+        <tr>
+            <td><%= product.name %></td>
+            <td><%= product.user.name %></td>
+            <td><%= product.created_at.to_date %></td>
+            <td>$<%= product.price %></td>
+            <td><a href = "/products/<%= product.id %>" data-method = "patch">Buy</a></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
